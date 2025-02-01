@@ -55,7 +55,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>New Tax Regime Calculator</h1>
+        <h1>New Tax Regime Calculator 2025</h1>
         <label for="income">Enter Total Income (₹):</label>
         <input type="text" id="income" name="income" required>
         <button onclick="calculateTax()">Calculate Tax</button>
@@ -85,10 +85,10 @@
                 ];
                 
                 for (let bracket of brackets) {
-                    if (taxableAmount > 0) {
-                        let amountToTax = Math.min(bracket.limit, taxableAmount);
+                    if (taxableIncome > 0) {
+                        let amountToTax = Math.min(bracket.limit, taxableIncome);
                         tax += amountToTax * bracket.rate;
-                        taxableAmount -= bracket.limit;
+                        taxableIncome -= bracket.limit;
                     } else {
                         break;
                     }
