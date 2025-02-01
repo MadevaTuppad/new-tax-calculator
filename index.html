@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator 2035-2036</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            width: 50%;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        label {
+            font-size: 18px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>New Tax Regime Calculator</h1>
+        <label for="income">Enter Total Income (₹):</label>
+        <input type="text" id="income" name="income" required>
+        <button onclick="calculateTax()">Calculate Tax</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculateTax() {
+            let income = parseFloat(document.getElementById("income").value);
+            if (isNaN(income) || income < 0) {
+                alert("Please enter a valid income amount.");
+                return;
+            }
+            
+            let taxableIncome = income - 75000;
+            let tax = 0;
+            
+            if (taxableIncome > 1200000) {
+                let taxableAmount = taxableIncome - 1200000;
+                let brackets = [
+                    { limit: 400000, rate: 0.00 },
+                    { limit: 400000, rate: 0.05 },
+                    { limit: 400000, rate: 0.10 },
+                    { limit: 400000, rate: 0.15 },
+                    { limit: 400000, rate: 0.20 },
+                    { limit: 400000, rate: 0.25 },
+                    { limit: Infinity, rate: 0.30 }
+                ];
+                
+                for (let bracket of brackets) {
+                    if (taxableAmount > 0) {
+                        let amountToTax = Math.min(bracket.limit, taxableAmount);
+                        tax += amountToTax * bracket.rate;
+                        taxableAmount -= bracket.limit;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            document.getElementById("result").innerHTML = `Calculated Tax: ₹${tax.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
