@@ -93,6 +93,10 @@
                         break;
                     }
                 }
+
+                if ((taxableIncome-tax)<1200000){
+                     tax=taxableIncome-1200000
+                }
             }
             
             document.getElementById("result").innerHTML = `Calculated Tax: ₹${tax.toFixed(2)}`;
