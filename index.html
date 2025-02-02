@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tax Calculator 2035-2036</title>
+    <title>Tax Calculator 2025</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,8 +24,7 @@
         }
         label {
             font-size: 18px;
-            display: block;
-            margin-top: 10px;
+            margin-right: 10px;
         }
         input[type="text"] {
             width: 100%;
@@ -36,6 +35,9 @@
             border-radius: 5px;
         }
         .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin: 10px 0;
         }
         button {
@@ -65,8 +67,8 @@
         <input type="text" id="income" name="income" required>
         
         <div class="radio-group">
-            <label><input type="radio" name="employment" value="salaried" checked> Salaried</label>
-            <label><input type="radio" name="employment" value="non-salaried"> Non-Salaried</label>
+            <label><input type="radio" name="employmentType" value="salaried" checked> Salaried</label>
+            <label><input type="radio" name="employmentType" value="nonSalaried"> Non-Salaried</label>
         </div>
         
         <button onclick="calculateTax()">Calculate Tax</button>
@@ -81,7 +83,7 @@
                 return;
             }
             
-            let employmentType = document.querySelector('input[name="employment"]:checked').value;
+            let employmentType = document.querySelector('input[name="employmentType"]:checked').value;
             let originalTaxableIncome = employmentType === "salaried" ? income - 75000 : income;
             let taxableIncome = originalTaxableIncome;
             let tax = 0;
@@ -106,8 +108,9 @@
                         break;
                     }
                 }
-                if ((originalTaxbleincome-tax)<1200000){
-                     tax=originalTaxbleincome-1200000
+                
+                if ((originalTaxableIncome - tax) < 1200000) {
+                    tax = originalTaxableIncome - 1200000;
                 }
             }
             
