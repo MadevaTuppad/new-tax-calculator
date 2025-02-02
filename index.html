@@ -24,14 +24,19 @@
         }
         label {
             font-size: 18px;
+            display: block;
+            margin-top: 10px;
         }
-        input {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-top: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+        }
+        .radio-group {
+            margin: 10px 0;
         }
         button {
             background-color: #28a745;
@@ -58,6 +63,12 @@
         <h1>New Tax Regime Calculator 2025</h1>
         <label for="income">Enter Total Income (₹):</label>
         <input type="text" id="income" name="income" required>
+        
+        <div class="radio-group">
+            <label><input type="radio" name="employment" value="salaried" checked> Salaried</label>
+            <label><input type="radio" name="employment" value="non-salaried"> Non-Salaried</label>
+        </div>
+        
         <button onclick="calculateTax()">Calculate Tax</button>
         <div id="result" class="result"></div>
     </div>
@@ -70,8 +81,9 @@
                 return;
             }
             
-            let originalTaxbleincome = income - 75000;
-            let taxableIncome = originalTaxbleincome
+            let employmentType = document.querySelector('input[name="employment"]:checked').value;
+            let originalTaxableIncome = employmentType === "salaried" ? income - 75000 : income;
+            let taxableIncome = originalTaxableIncome;
             let tax = 0;
             
             if (taxableIncome > 1200000) {
@@ -94,7 +106,6 @@
                         break;
                     }
                 }
-
                 if ((originalTaxbleincome-tax)<1200000){
                      tax=originalTaxbleincome-1200000
                 }
